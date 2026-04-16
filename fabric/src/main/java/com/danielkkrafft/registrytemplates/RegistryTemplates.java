@@ -1,8 +1,8 @@
-package com.example.examplemod;
+package com.danielkkrafft.registrytemplates;
 
 import net.fabricmc.api.ModInitializer;
 
-public class ExampleMod implements ModInitializer {
+public class RegistryTemplates implements ModInitializer {
     
     @Override
     public void onInitialize() {
