@@ -1,5 +1,11 @@
 package com.danielkkrafft.registrytemplates.platform.services;
 
+import com.danielkkrafft.registrytemplates.RegistryTemplates;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+
+import java.util.function.Supplier;
+
 public interface IPlatformHelper {
 
     /**
@@ -33,4 +39,7 @@ public interface IPlatformHelper {
 
         return isDevelopmentEnvironment() ? "development" : "production";
     }
+
+    <T> void register(ResourceKey<Registry<T>> registry, ResourceKey<T> key, Supplier<T> value);
+    default void completeRegistration() {}
 }

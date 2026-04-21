@@ -16,7 +16,10 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-          "com.danielkkrafft.registrytemplates.RegistryTemplates"
+          "com.danielkkrafft.registrytemplates.Main"
+        ],
+        "fabric-datagen": [
+          "com.danielkkrafft.registrytemplates.DataGenerators"
         ]
     },
     "mixins": [

@@ -22,3 +22,7 @@ build
 eclipse
 run
 runs
+
+test-neo
+neoforge/src/generated
+fabric/src/main/generated

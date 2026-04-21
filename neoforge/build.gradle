@@ -59,3 +59,12 @@ sourceSets.configureEach {
         }
     }
 }
+
+dependencies {
+    jarJar("io.github.classgraph:classgraph:[${classgraph_version},)") {
+        version {
+            prefer(classgraph_version)
+        }
+    }
+    implementation "io.github.classgraph:classgraph:${classgraph_version}"
+}
