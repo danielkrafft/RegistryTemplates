@@ -17,9 +17,6 @@
     "entrypoints": {
         "main": [
           "com.danielkkrafft.registrytemplates.Main"
-        ],
-        "fabric-datagen": [
-          "com.danielkkrafft.registrytemplates.DataGeneratorsInternal"
         ]
     },
     "mixins": [

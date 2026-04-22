@@ -17,6 +17,14 @@ fabricApi {
     }
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir project(":neoforge").file("src/generated/resources")
+        }
+    }
+}
+
 loom {
     def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
     if (aw.exists()) {
