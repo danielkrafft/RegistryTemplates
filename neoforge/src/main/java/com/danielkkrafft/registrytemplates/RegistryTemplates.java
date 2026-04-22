@@ -1,18 +1,26 @@
 package com.danielkkrafft.registrytemplates;
 
 import net.minecraft.core.Registry;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class NeoRegistryTemplates extends RegistryTemplates {
-    public static NeoRegistryTemplates INSTANCE;
+public class RegistryTemplates extends AbstractRegistryTemplates {
+    public static RegistryTemplates INSTANCE; // TODO don't maintain two
 
     private Map<Registry<?>, DeferredRegister<?>> deferredRegisters = new HashMap<>();
+    public IEventBus eventBus;
 
-    public NeoRegistryTemplates(String basePackage, String modid) {
+    public RegistryTemplates(String basePackage, String modid, IEventBus eventBus) {
         super(basePackage, modid);
+        INSTANCE = this;
+        this.eventBus = eventBus;
+        eventBus.addListener(GatherDataEvent.Client.class, e -> {
+            DataGenerators.gatherClientData(e, this);
+        });
     }
 
     @Override
@@ -27,6 +35,6 @@ public class NeoRegistryTemplates extends RegistryTemplates {
     }
 
     public void completeRegistration() {
-        deferredRegisters.forEach((_, value) -> value.register(Main.EVENT_BUS));
+        deferredRegisters.forEach((_, value) -> value.register(eventBus));
     }
 }

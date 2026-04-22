@@ -1,6 +1,6 @@
 package com.danielkkrafft.registrytemplates.template;
 
-import com.danielkkrafft.registrytemplates.RegistryTemplates;
+import com.danielkkrafft.registrytemplates.AbstractRegistryTemplates;
 import com.danielkkrafft.registrytemplates.client.model.RTModel;
 import com.danielkkrafft.registrytemplates.datagen.provider.RTItemTagsProvider;
 import com.danielkkrafft.registrytemplates.datagen.provider.RTLanguageProvider;
@@ -23,7 +23,6 @@ public class RTAbstractItem<T extends Item, R extends RTAbstractItem<T, R>> exte
 
     public RTAbstractItem(String id, Function<Item.Properties, T> itemFactory) {
         super(id);
-        RegistryTemplates.INSTANCE.track(RTAbstractItem.class, this);
         this.itemFactory = itemFactory;
         ITEM = new LazyReference<>(Registries.ITEM, id);
     }
@@ -73,12 +72,12 @@ public class RTAbstractItem<T extends Item, R extends RTAbstractItem<T, R>> exte
 
     @Override
     public void register() {
-        RegistryTemplates.register(Registries.ITEM, key(), () -> itemFactory.apply(new Item.Properties().setId(key())));
+        AbstractRegistryTemplates.register(Registries.ITEM, key(), () -> itemFactory.apply(new Item.Properties().setId(key())));
     }
 
     @Override
     public void addTranslations(RTLanguageProvider provider) {
-        provider.add(RegistryTemplates.INSTANCE.modid, "en_us", get().getDescriptionId(), Component.literal(getLocalEN()));
+        provider.add("en_us", get().getDescriptionId(), Component.literal(getLocalEN()));
     }
 
     // TODO creative tab

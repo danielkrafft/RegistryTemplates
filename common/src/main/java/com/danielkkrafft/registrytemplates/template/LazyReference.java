@@ -1,6 +1,6 @@
 package com.danielkkrafft.registrytemplates.template;
 
-import com.danielkkrafft.registrytemplates.RegistryTemplates;
+import com.danielkkrafft.registrytemplates.AbstractRegistryTemplates;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,7 +15,7 @@ public class LazyReference<R, T extends R> {
 
     public LazyReference(ResourceKey<Registry<R>> registry, String path) {
         this.registry = (Registry<R>) BuiltInRegistries.REGISTRY.getValue(registry.identifier());
-        this.key = ResourceKey.create(registry, Identifier.fromNamespaceAndPath(RegistryTemplates.INSTANCE.modid, path));
+        this.key = ResourceKey.create(registry, Identifier.fromNamespaceAndPath(AbstractRegistryTemplates.CURRENT.modid, path));
     }
 
     public T get() {

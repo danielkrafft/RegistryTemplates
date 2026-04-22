@@ -1,15 +1,12 @@
 package com.danielkkrafft.registrytemplates.datagen.provider;
 
-import com.danielkkrafft.registrytemplates.RegistryTemplates;
+import com.danielkkrafft.registrytemplates.AbstractRegistryTemplates;
 import com.danielkkrafft.registrytemplates.client.model.RTModel;
-import com.danielkkrafft.registrytemplates.template.RTDataProvider;
 import com.danielkkrafft.registrytemplates.template.RegistryTemplate;
-import com.danielkkrafft.registrytemplates.util.ModContent;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -23,6 +20,7 @@ import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModelDispatcher;
 import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -30,18 +28,18 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-@ModContent
 public class RTModelProvider implements DataProvider {
-    public static final RTDataProvider<RTModelProvider> PROVIDER = new RTDataProvider<RTModelProvider>(RTModelProvider::new);
 
     private final PackOutput.PathProvider blockStatePathProvider;
     private final PackOutput.PathProvider itemInfoPathProvider;
     private final PackOutput.PathProvider modelPathProvider;
+    public AbstractRegistryTemplates templates;
 
-    public RTModelProvider(PackOutput output) {
+    public RTModelProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookup, AbstractRegistryTemplates templates) {
         this.blockStatePathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "blockstates");
         this.itemInfoPathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
         this.modelPathProvider = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
+        this.templates = templates;
     }
 
     @Override
@@ -58,7 +56,7 @@ public class RTModelProvider implements DataProvider {
     }
 
     protected void registerModels(RTBlockModelGenerators blockModels, RTItemModelGenerators itemModels) {
-        RegistryTemplates.INSTANCE.getAll(RegistryTemplate.class).forEach(RegistryTemplate::registerModels);
+        templates.getAll(RegistryTemplate.class).forEach(RegistryTemplate::registerModels);
         RTModel.ALL_MODELS.forEach(m -> m.registerModels(blockModels, itemModels));
         RTModel.ALL_MODELS.clear();
         blockModels.run();

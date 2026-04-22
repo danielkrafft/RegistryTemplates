@@ -19,7 +19,7 @@
           "com.danielkkrafft.registrytemplates.Main"
         ],
         "fabric-datagen": [
-          "com.danielkkrafft.registrytemplates.DataGenerators"
+          "com.danielkkrafft.registrytemplates.DataGeneratorsInternal"
         ]
     },
     "mixins": [

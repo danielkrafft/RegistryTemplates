@@ -1,6 +1,5 @@
 package com.danielkkrafft.registrytemplates.platform.services;
 
-import com.danielkkrafft.registrytemplates.RegistryTemplates;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 

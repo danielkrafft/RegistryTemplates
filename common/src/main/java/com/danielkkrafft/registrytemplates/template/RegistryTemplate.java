@@ -1,19 +1,18 @@
 package com.danielkkrafft.registrytemplates.template;
 
-import com.danielkkrafft.registrytemplates.RegistryTemplates;
+import com.danielkkrafft.registrytemplates.AbstractRegistryTemplates;
 import com.danielkkrafft.registrytemplates.datagen.provider.RTLanguageProvider;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 public abstract class RegistryTemplate<T extends RegistryTemplate<T>> {
 
     public String id;
     private Supplier<String> localEN = () -> ""; // local might be referenced before it exists
+    public AbstractRegistryTemplates owner;
 
     public RegistryTemplate(String id) {
-        RegistryTemplates.INSTANCE.track(RegistryTemplate.class, this);
+        AbstractRegistryTemplates.CURRENT.track(this);
         this.id = id;
     }
 
