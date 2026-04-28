@@ -18,7 +18,8 @@ import java.util.function.Function;
  * <p>
  * Usage:
  * <p>
- * public static RTAbstractItem<Item, ?> EXAMPLE = new RTAbstractItem<>("example_item", Item::new).flatModel().setLocalEN(() -> "Example Item");
+ * {@code public static RTAbstractItem<Item, ?> EXAMPLE = new RTAbstractItem<>("example_item", Item::new).flatModel().setLocalEN(() -> "Example Item"); }
+ *
  *
  * @param <T> The Item subclass for this item's behavior (this allows methods like get() to return the correct Item class without a cast)
  * @param <R> The RegistryTemplate subclass (this allows methods like setModel to be chained, even in subclasses, without a cast)

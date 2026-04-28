@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
  * <p>
  * Usage:
  * <p>
- * public static RTDataProvider<ExampleProvider> EXAMPLE = new RTDataProvider<ExampleProvider>((o, p, t) -> new ExampleProvider(o, p, t));
+ * {@code public static RTDataProvider<ExampleProvider> EXAMPLE = new RTDataProvider<ExampleProvider>((o, p, t) -> new ExampleProvider(o, p, t));}
  *
  * @param <T> The DataProvider subclass
  */

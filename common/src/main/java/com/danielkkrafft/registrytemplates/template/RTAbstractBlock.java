@@ -26,7 +26,7 @@ import java.util.function.Supplier;
  * <p>
  * Usage:
  * <p>
- * public static RTAbstractBlock<Block, ?> EXAMPLE = new RTAbstractBlock<>("example_block", Block::new).basicModel().dropSelf().setLocalEN(() -> "Example Block");
+ * {@code public static RTAbstractBlock<Block, ?> EXAMPLE = new RTAbstractBlock<>("example_block", Block::new).basicModel().dropSelf().setLocalEN(() -> "Example Block"); }
  *
  * @param <T> The Block subclass for this block's behavior (this allows methods like get() to return the correct Block subclass without a cast)
  * @param <R> The RegistryTemplate subclass (this allows methods like setModel to be chained, even in subclasses, without a cast)
