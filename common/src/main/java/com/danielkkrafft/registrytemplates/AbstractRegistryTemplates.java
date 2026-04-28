@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 public abstract class AbstractRegistryTemplates {
 
     public static Map<String, AbstractRegistryTemplates> INSTANCES = new HashMap<>();
-    public static AbstractRegistryTemplates CURRENT = null;
+    public static AbstractRegistryTemplates CURRENT = null; // TODO include a static track() queue that resolves once the instance is created
 
     public final String basePackage;
     public final String modid;
