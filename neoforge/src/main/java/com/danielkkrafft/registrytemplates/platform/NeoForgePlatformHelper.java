@@ -1,5 +1,6 @@
 package com.danielkkrafft.registrytemplates.platform;
 
+import com.danielkkrafft.registrytemplates.AbstractRegistryTemplates;
 import com.danielkkrafft.registrytemplates.RegistryTemplates;
 import com.danielkkrafft.registrytemplates.platform.services.IPlatformHelper;
 import net.minecraft.core.Registry;
@@ -33,11 +34,11 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public <T> void register(ResourceKey<Registry<T>> registry, ResourceKey<T> key, Supplier<T> supplier) {
         Registry<T> reg = (Registry<T>) BuiltInRegistries.REGISTRY.getValue(registry.identifier());
-        RegistryTemplates.INSTANCE.getDeferredRegister(reg).register(key.identifier().getPath(), supplier);
+        ((RegistryTemplates)AbstractRegistryTemplates.CURRENT).getDeferredRegister(reg).register(key.identifier().getPath(), supplier);
     }
 
     @Override
     public void completeRegistration() {
-        RegistryTemplates.INSTANCE.completeRegistration();
+        ((RegistryTemplates)AbstractRegistryTemplates.CURRENT).completeRegistration();
     }
 }

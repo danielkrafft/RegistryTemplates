@@ -1,8 +1,6 @@
 package com.danielkkrafft.registrytemplates;
 
-import com.danielkkrafft.registrytemplates.datagen.provider.RTItemTagsProvider;
-import com.danielkkrafft.registrytemplates.datagen.provider.RTLanguageProvider;
-import com.danielkkrafft.registrytemplates.datagen.provider.RTModelProvider;
+import com.danielkkrafft.registrytemplates.datagen.provider.*;
 import com.danielkkrafft.registrytemplates.platform.Services;
 import com.danielkkrafft.registrytemplates.template.RTDataProvider;
 import com.danielkkrafft.registrytemplates.template.RegistryTemplate;
@@ -22,7 +20,7 @@ import java.util.function.Supplier;
 public abstract class AbstractRegistryTemplates {
 
     public static Map<String, AbstractRegistryTemplates> INSTANCES = new HashMap<>();
-    public static AbstractRegistryTemplates CURRENT = null; // TODO include a static track() queue that resolves once the instance is created
+    public static AbstractRegistryTemplates CURRENT = null;
 
     public final String basePackage;
     public final String modid;
@@ -88,9 +86,11 @@ public abstract class AbstractRegistryTemplates {
         Services.PLATFORM.register(registry, key, supplier);
     }
 
-    public void createProviders() {
+    public void createProviders() { // TODO investigate dependee providers
         new RTDataProvider<>(RTItemTagsProvider::new);
+        new RTDataProvider<>(RTBlockTagsProvider::new);
         new RTDataProvider<>(RTLanguageProvider::new);
-        new RTDataProvider<>(RTModelProvider::new);
+        new RTDataProvider<>((o, p, t) -> new RTModelProvider(o, p, t)); // explicit lambda is required to avoid server crash. Method references (RTModelProvider::new) cause the class to load
+        new RTDataProvider<>(RTLootTableProvider::create);
     }
 }

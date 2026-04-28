@@ -67,7 +67,7 @@ public class RTAbstractItem<T extends Item, R extends RTAbstractItem<T, R>> exte
 
     @Override
     public void registerModels() {
-        modelFactory.apply(get());
+        if (modelFactory != null) modelFactory.apply(get());
     }
 
     @Override

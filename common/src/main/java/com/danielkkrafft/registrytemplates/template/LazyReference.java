@@ -15,6 +15,7 @@ public class LazyReference<R, T extends R> {
 
     public LazyReference(ResourceKey<Registry<R>> registry, String path) {
         this.registry = (Registry<R>) BuiltInRegistries.REGISTRY.getValue(registry.identifier());
+        if (AbstractRegistryTemplates.CURRENT == null) throw new IllegalStateException("Tried to create a LazyReference, but RegistryTemplates doesn't exist yet! (are you creating templates in your mod's main class?)"); // TODO more elegant handling
         this.key = ResourceKey.create(registry, Identifier.fromNamespaceAndPath(AbstractRegistryTemplates.CURRENT.modid, path));
     }
 

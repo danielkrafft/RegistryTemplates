@@ -9,24 +9,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistryTemplates extends AbstractRegistryTemplates {
-    public static RegistryTemplates INSTANCE; // TODO don't maintain two
 
     private Map<Registry<?>, DeferredRegister<?>> deferredRegisters = new HashMap<>();
     public IEventBus eventBus;
 
     public RegistryTemplates(String basePackage, String modid, IEventBus eventBus) {
         super(basePackage, modid);
-        INSTANCE = this;
         this.eventBus = eventBus;
         eventBus.addListener(GatherDataEvent.Client.class, e -> {
             DataGenerators.gatherClientData(e, this);
         });
-    }
-
-    @Override
-    public void load() {
-        INSTANCE = this;
-        super.load();
     }
 
     public <T> DeferredRegister<T> getDeferredRegister(Registry<T> registry) {
