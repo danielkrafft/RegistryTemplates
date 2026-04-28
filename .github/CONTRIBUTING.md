@@ -8,3 +8,7 @@ Please test the following before contributing:
 * Fabric Client Environment
 
 * Any RegistryTemplate subclasses should include a Javadoc with an example for usage
+
+For new releases:
+* publish to Maven Central
+* create a GitHub Release and Tag
