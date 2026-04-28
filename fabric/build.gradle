@@ -1,7 +1,45 @@
 plugins {
     id 'multiloader-loader'
     id 'net.fabricmc.fabric-loom'
+    id 'com.vanniktech.maven.publish' version '0.36.0'
 }
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+}
+
+mavenPublishing {
+    coordinates(group, "${mod_id}-fabric", version)
+
+    pom {
+        name = mod_name
+        description = project.description
+        inceptionYear = "2026"
+        url = version_control
+
+        licenses {
+            license {
+                name = 'MIT License'
+                url = 'https://opensource.org/license/mit'
+            }
+        }
+        developers {
+            developer {
+                name = 'Daniel Krafft'
+                email = 'daniel@krafftmedia.co'
+                organization = "Krafft Media LLC"
+                organizationUrl = "https://github.com/danielkrafft"
+            }
+        }
+        scm {
+            connection = 'scm:git:git://github.com/danielkrafft/RegistryTemplates.git'
+            developerConnection = 'scm:git:ssh://github.com:danielkrafft/RegistryTemplates.git'
+            url = 'https://github.com/danielkrafft/RegistryTemplates'
+        }
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
@@ -46,15 +84,28 @@ loom {
     }
 }
 
+java {
+    toolchain{
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
 // Implement mcgradleconventions loader attribute
 def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
-['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements', 'includeInternal', 'modCompileClasspath'].each { variant ->
-    configurations.named("$variant") {
-        attributes {
-            attribute(loaderAttribute, 'fabric')
-        }
-    }
+//['apiElements', 'runtimeElements', 'includeInternal', 'modCompileClasspath', 'sourcesElements', 'javadocElements'].each { variant ->
+//    configurations.named("$variant") {
+//        attributes {
+//            attribute(loaderAttribute, 'fabric')
+//        }
+//    }
+//}
+def targetVariants = ['apiElements', 'runtimeElements', 'includeInternal', 'modCompileClasspath', 'sourcesElements', 'javadocElements'] as Set
+configurations.matching { it.name in targetVariants }.configureEach {
+    attributes { attribute(loaderAttribute, "fabric") }
 }
+
 sourceSets.configureEach {
     [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
         configurations.named("$variant") {

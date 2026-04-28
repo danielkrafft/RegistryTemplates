@@ -1,17 +1,16 @@
 plugins {
     id 'java-library'
-    id 'maven-publish'
 }
 
 base {
     archivesName = "${mod_id}-${project.name}-${minecraft_version}"
 }
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
-    withSourcesJar()
-    withJavadocJar()
-}
+//java {
+//    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+//    withSourcesJar()
+//    withJavadocJar()
+//}
 
 repositories {
     mavenCentral()
@@ -31,11 +30,11 @@ repositories {
     }
 }
 
-sourcesJar {
-    from(rootProject.file('LICENSE')) {
-        rename { "${it}_${mod_name}" }
-    }
-}
+//sourcesJar {
+//    from(rootProject.file('LICENSE')) {
+//        rename { "${it}_${mod_name}" }
+//    }
+//}
 
 jar {
     from(rootProject.file('LICENSE')) {
@@ -72,7 +71,8 @@ processResources {
             'neoforge_loader_version_range': neoforge_loader_version_range,
             'credits'                      : credits,
             'java_version'                 : java_version,
-            'classgraph_version'           : classgraph_version
+            'classgraph_version'           : classgraph_version,
+            'version_control'              : version_control
     ]
 
     var jsonExpandProps = expandProps.collectEntries {
@@ -90,16 +90,16 @@ processResources {
     inputs.properties(expandProps)
 }
 
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifactId base.archivesName.get()
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url System.getenv('local_maven_url')
-        }
-    }
-}
+//publishing {
+//    publications {
+//        register('mavenJava', MavenPublication) {
+//            artifactId base.archivesName.get()
+//            from components.java
+//        }
+//    }
+//    repositories {
+//        maven {
+//            url System.getenv('local_maven_url')
+//        }
+//    }
+//}

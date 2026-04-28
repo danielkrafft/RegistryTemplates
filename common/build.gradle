@@ -1,6 +1,43 @@
 plugins {
     id 'multiloader-common'
     id 'net.neoforged.moddev'
+    id 'com.vanniktech.maven.publish' version '0.36.0'
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+}
+
+mavenPublishing {
+    coordinates(group, "${mod_id}-common", version)
+
+    pom {
+        name = mod_name
+        description = project.description
+        inceptionYear = "2026"
+        url = version_control
+
+        licenses {
+            license {
+                name = 'MIT License'
+                url = 'https://opensource.org/license/mit'
+            }
+        }
+        developers {
+            developer {
+                name = 'Daniel Krafft'
+                email = 'daniel@krafftmedia.co'
+                organization = "Krafft Media LLC"
+                organizationUrl = "https://github.com/danielkrafft"
+            }
+        }
+        scm {
+            connection = 'scm:git:git://github.com/danielkrafft/RegistryTemplates.git'
+            developerConnection = 'scm:git:ssh://github.com:danielkrafft/RegistryTemplates.git'
+            url = 'https://github.com/danielkrafft/RegistryTemplates'
+        }
+    }
 }
 
 neoForge {
@@ -39,13 +76,19 @@ artifacts {
 
 // Implement mcgradleconventions loader attribute
 def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
-['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
-    configurations.named("$variant") {
-        attributes {
-            attribute(loaderAttribute, 'common')
-        }
-    }
+//['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
+//    configurations.named("$variant") {
+//        attributes {
+//            attribute(loaderAttribute, 'common')
+//        }
+//    }
+//}
+
+def targetVariants = ['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'] as Set
+configurations.matching { it.name in targetVariants }.configureEach {
+    attributes { attribute(loaderAttribute, "common") }
 }
+
 sourceSets.configureEach {
     [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
         configurations.named("$variant") {
