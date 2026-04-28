@@ -25,6 +25,17 @@ public Main(IEventBus eventBus) {
 }
 ```
 
+Add the following to your mods.toml:
+
+```
+[[dependencies.${mod_id}]]
+modId = "registrytemplates"
+type="required"
+versionRange = "[1.0.2-alpha,)"
+ordering = "BEFORE"
+side = "BOTH"
+```
+
 ### Fabric
 
 Add the following dependency to your build script:
@@ -47,6 +58,14 @@ Add the following entrypoint to your fabric.mod.json:
     "fabric-datagen": [
         "com.danielkkrafft.registrytemplates.DataGenerators"
     ]
+}
+```
+
+Add the following dependency to your fabric.mod.json:
+
+```
+"depends": {
+        "registrytemplates": "*"
 }
 ```
 
