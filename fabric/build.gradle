@@ -9,6 +9,17 @@ mavenPublishing {
     signAllPublications()
 }
 
+publishing {
+    repositories {
+        mavenLocal()
+
+        maven {
+            name = 'NAS'
+            url = uri('Z:/Maven')
+        }
+    }
+}
+
 mavenPublishing {
     coordinates(group, "${mod_id}-fabric", version)
 
