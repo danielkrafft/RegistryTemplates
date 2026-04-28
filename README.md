@@ -2,6 +2,9 @@
 
 This mod provides configurable templates to register modded content in a few lines or less.
 
+## IMPORTANT
+### This is a development preview. Not recommended for production use
+
 ## Table of Contents
 1. [Quick Setup Guide](#quick-setup-guide)
 2. [Usage](#usage)
