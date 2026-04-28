@@ -1,4 +1,4 @@
-# RegistryTemplates
+# RegistryTemplates [![Maven Central](https://img.shields.io/maven-central/v/com.danielkkrafft.registrytemplates/registrytemplates-common)](https://central.sonatype.com/artifact/com.danielkkrafft.registrytemplates/registrytemplates-common)
 
 This mod provides configurable templates to register modded content in a few lines or less.
 
