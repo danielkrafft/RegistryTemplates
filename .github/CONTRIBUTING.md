@@ -6,3 +6,5 @@ Please test the following before contributing:
 * Fabric Data Generation
 * Fabric Server Environment
 * Fabric Client Environment
+
+* Any RegistryTemplate subclasses should include a Javadoc with an example for usage

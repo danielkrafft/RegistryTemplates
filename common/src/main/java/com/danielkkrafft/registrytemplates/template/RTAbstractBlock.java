@@ -21,6 +21,16 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * Registers a new block
+ * <p>
+ * Usage:
+ * <p>
+ * public static RTAbstractBlock<Block, ?> EXAMPLE = new RTAbstractBlock<>("example_block", Block::new).basicModel().dropSelf().setLocalEN(() -> "Example Block");
+ *
+ * @param <T> The Block subclass for this block's behavior (this allows methods like get() to return the correct Block subclass without a cast)
+ * @param <R> The RegistryTemplate subclass (this allows methods like setModel to be chained, even in subclasses, without a cast)
+ */
 public class RTAbstractBlock<T extends Block, R extends RTAbstractBlock<T, R>> extends RegistryTemplate<R> {
 
     protected Function<BlockBehaviour.Properties, T> blockFactory;
@@ -47,7 +57,6 @@ public class RTAbstractBlock<T extends Block, R extends RTAbstractBlock<T, R>> e
     public Identifier identifier() { return BLOCK.key.identifier(); }
 
     // Configs
-
 
     @Override
     public R setLocalEN(Supplier<String> local) {
