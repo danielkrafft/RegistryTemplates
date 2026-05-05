@@ -15,7 +15,7 @@ This mod provides configurable templates to register modded content in a few lin
 
 Add the following dependency to your build script:
 
-```implementation "com.danielkkrafft.registrytemplates:registrytemplates-neoforge:1.0.3-alpha"```
+```implementation "com.danielkkrafft.registrytemplates:registrytemplates-neoforge:{{MOD_VERSION}}"```
 
 Add the following to your mod's main class constructor:
 
@@ -31,7 +31,7 @@ Add the following to your mods.toml:
 [[dependencies.${mod_id}]]
 modId = "registrytemplates"
 type="required"
-versionRange = "[1.0.3-alpha,)"
+versionRange = "[{{MOD_VERSION}},)"
 ordering = "BEFORE"
 side = "BOTH"
 ```
@@ -40,7 +40,7 @@ side = "BOTH"
 
 Add the following dependency to your build script:
 
-```implementation "com.danielkkrafft.registrytemplates:registrytemplates-fabric:1.0.3-alpha"```
+```implementation "com.danielkkrafft.registrytemplates:registrytemplates-fabric:{{MOD_VERSION}}"```
 
 Add the following to your mod's main initialization hook:
 
@@ -73,7 +73,7 @@ Add the following dependency to your fabric.mod.json:
 
 Follow the Neoforge and Fabric steps for their respective modules, then add the following dependency to your common module's build script:
 
-```implementation "com.danielkkrafft.registrytemplates:registrytemplates-common:1.0.3-alpha"```
+```implementation "com.danielkkrafft.registrytemplates:registrytemplates-common:{{MOD_VERSION}}"```
 
 ## Usage
 

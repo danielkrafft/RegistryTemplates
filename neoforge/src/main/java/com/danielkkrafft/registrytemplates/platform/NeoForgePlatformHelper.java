@@ -34,11 +34,11 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public <T> void register(ResourceKey<Registry<T>> registry, ResourceKey<T> key, Supplier<T> supplier) {
         Registry<T> reg = (Registry<T>) BuiltInRegistries.REGISTRY.getValue(registry.identifier());
-        ((RegistryTemplates)AbstractRegistryTemplates.CURRENT).getDeferredRegister(reg).register(key.identifier().getPath(), supplier);
+        RegistryTemplates.getCurrent().getDeferredRegister(reg).register(key.identifier().getPath(), supplier);
     }
 
     @Override
     public void completeRegistration() {
-        ((RegistryTemplates)AbstractRegistryTemplates.CURRENT).completeRegistration();
+        RegistryTemplates.getCurrent().completeRegistration();
     }
 }

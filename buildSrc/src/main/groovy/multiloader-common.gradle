@@ -103,3 +103,23 @@ processResources {
 //        }
 //    }
 //}
+
+tasks.register('generateReadme') {
+    def template = file('../README.template.md')
+    def output = file('../README.md')
+    inputs.file template
+    inputs.file file('../gradle.properties')
+    outputs.file output
+
+    doLast {
+        def text = template.text
+                .replace('{{MOD_VERSION}}', version)
+                .replace('{{MC_VERSION}}', minecraft_version)
+        output.text = text
+    }
+}
+afterEvaluate {
+    tasks.named('publishToMavenCentral') {
+        dependsOn tasks.named('generateReadme')
+    }
+}

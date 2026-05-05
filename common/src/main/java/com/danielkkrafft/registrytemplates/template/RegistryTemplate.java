@@ -12,7 +12,7 @@ public abstract class RegistryTemplate<T extends RegistryTemplate<T>> {
     public AbstractRegistryTemplates owner;
 
     public RegistryTemplate(String id) {
-        AbstractRegistryTemplates.CURRENT.track(this);
+        AbstractRegistryTemplates.getCurrent().track(this);
         this.id = id;
     }
 

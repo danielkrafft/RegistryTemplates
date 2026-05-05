@@ -20,7 +20,8 @@ import java.util.function.Supplier;
 public abstract class AbstractRegistryTemplates {
 
     public static Map<String, AbstractRegistryTemplates> INSTANCES = new HashMap<>();
-    public static AbstractRegistryTemplates CURRENT = null;
+    private static final ThreadLocal<AbstractRegistryTemplates> CURRENT = new ThreadLocal<>();
+    public static AbstractRegistryTemplates getCurrent() { return CURRENT.get(); }
 
     public final String basePackage;
     public final String modid;
@@ -28,7 +29,7 @@ public abstract class AbstractRegistryTemplates {
 
     public AbstractRegistryTemplates(String basePackage, String modid) {
         INSTANCES.put(modid, this);
-        CURRENT = this;
+        CURRENT.set(this);
         this.basePackage = basePackage;
         this.modid = modid;
     }
@@ -56,7 +57,7 @@ public abstract class AbstractRegistryTemplates {
 
         getAll(RegistryTemplate.class).forEach(RegistryTemplate::register);
         Services.PLATFORM.completeRegistration();
-        CURRENT = null;
+        CURRENT.remove();
     }
 
     public void track(RegistryTemplate<?> template) {

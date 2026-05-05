@@ -12,6 +12,8 @@ public class RegistryTemplates extends AbstractRegistryTemplates {
 
     private Map<Registry<?>, DeferredRegister<?>> deferredRegisters = new HashMap<>();
     public IEventBus eventBus;
+    public static RegistryTemplates getCurrent() { return (RegistryTemplates) AbstractRegistryTemplates.getCurrent(); }
+
 
     public RegistryTemplates(String basePackage, String modid, IEventBus eventBus) {
         super(basePackage, modid);
